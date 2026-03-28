@@ -1,6 +1,5 @@
 ---
 
-```markdown
 # 🚀 NanoNAS + Halo CE Server 🛡️
 
 ![Python](https://img.shields.io/badge/Python-3.9+-blue?style=for-the-badge&logo=python)
@@ -39,9 +38,9 @@ Este proyecto transforma una laptop antigua en un servidor funcional con gestió
 ### 1. Clonar y Preparar
 Clona el repositorio en tu servidor:
 ```bash
-git clone [https://github.com/tu-usuario/tu-repo.git](https://github.com/tu-usuario/tu-repo.git)
-cd tu-repo
-```
+git clone [https://github.com/Anothernear/NAS.git](https://github.com/Anothernear/NAS.git)
+cd NAS
+
 
 ### 2. Ejecutar el Instalador Automático
 El archivo `setup.sh` se encargará de instalar Wine, Python, crear el entorno virtual, configurar los servicios de sistema (`systemd`) y descomprimir Halo:
@@ -92,3 +91,5 @@ El sistema utiliza servicios para asegurar que el NAS y Halo siempre estén acti
 | `journalctl -u nas_app -f` | Ver intentos de login y subidas en tiempo real. |
 
 ---
+
+## Puedes descargar el HALOCE desde https://halocustomedition.github.io/Halo/
