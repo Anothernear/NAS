@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - Mi NAS</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <script nonce="{{ csp_nonce() }}">
+        // Esto fuerza a limpiar cualquier dato de formulario previo al cargar la página
+        window.onload = function() {
+            document.querySelector('form').reset();
+        };
+    </script>
+</head>
+<body>
+    <div id="three-container" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;pointer-events:none;"></div>
+    <!-- Colócalo dentro de <body>, preferiblemente al inicio -->
+    <div id="three-bg" style="position:fixed; inset:0; z-index:-2; pointer-events:none;"></div>
+
+    <div class="grid-container">
+        <div class="grid-lines"></div>
+    </div>
+
+    <div class="container login-container">
+        <div class="card login-card">
+            <h1>Iniciar Sesión</h1>
+            
+            {% if error %}
+                <div class="error-msg">{{ error }}</div>
+            {% endif %}
+            
+            <form method="POST" action="/">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <div class="form-group">
+                    <label for="user">Usuario</label>
+                    <input type="text" id="user" name="user" required autofocus>
+                </div>
+                
+                <div class="form-group">
+                    <label for="pass">Contraseña</label>
+                    <input type="password" id="pass" name="pass" required>
+                </div>
+                
+                <button type="submit" class="btn-primary">Entrar</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+const container = document.getElementById('three-container');
+const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: false });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setClearColor(0x000000, 0.2);
+container.appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+camera.position.set(0, -8, 12);
+camera.lookAt(0, 0, 0);
+
+const geometry = new THREE.PlaneGeometry(30, 30, 100, 100);
+const material = new THREE.ShaderMaterial({
+    uniforms: {
+        uMouse: { value: new THREE.Vector2(0.5, 0.5) },
+        uTime: { value: 0.0 }
+    },
+    vertexShader: `
+        uniform vec2 uMouse;
+        uniform float uTime;
+        varying vec3 vColor;
+        varying float vHeight;
+        void main() {
+            vec3 pos = position;
+            float distMouse = distance(uv, uMouse);
+            pos.z = sin(pos.x * 1.0 + uTime * 0.3) * 0.3 + 
+                    cos(pos.y * 1.0 + uTime * 0.3) * 0.3 +
+                    sin((pos.x + pos.y) * 0.5 + uTime * 0.2) * 0.2;
+            pos.z -= smoothstep(0.6, 0.0, distMouse) * 1.5;
+            pos.z += sin(uTime + pos.x * 0.3) * 0.1;
+            vHeight = pos.z;
+            vColor = mix(
+                vec3(0.8, 0.8, 0.8),
+                mix(
+                    vec3(0.0, 0.8, 1.0),
+                    vec3(1.0, 0.0, 0.8),
+                    sin(uTime * 0.3 + pos.x * 0.2) * 0.5 + 0.5
+                ),
+                clamp(pos.z * 0.4, 0.0, 1.0)
+            );
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
+        }
+    `,
+    fragmentShader: `
+        varying vec3 vColor;
+        varying float vHeight;
+        void main() {
+            float intensity = clamp(vHeight * 0.4, 0.0, 1.0);
+            vec3 finalColor = vColor * (0.5 + intensity * 0.3);
+            gl_FragColor = vec4(finalColor, 0.3);
+        }
+    `,
+    wireframe: true,
+    transparent: true
+});
+
+const mesh = new THREE.Mesh(geometry, material);
+mesh.rotation.x = -Math.PI / 3.5;
+scene.add(mesh);
+
+function animate3D() {
+    requestAnimationFrame(animate3D);
+    material.uniforms.uTime.value += 0.01;
+    renderer.render(scene, camera);
+}
+animate3D();
+
+document.addEventListener('mousemove', (e) => {
+    material.uniforms.uMouse.value.x = e.clientX / window.innerWidth;
+    material.uniforms.uMouse.value.y = 1.0 - e.clientY / window.innerHeight;
+});
+
+window.addEventListener('resize', () => {
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+});
+</script>
+</body>
+</html>

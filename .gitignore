@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.py[cod]
+venv/
+
+# Base de Datos y Seguridad
+*.db
+instance/
+.env
+config.py
+
+# Binarios de Halo/Wine
+*.exe
+*.sh (si tienen passwords)
+
+# Archivos de Sistema
+.DS_Store

@@ -1,0 +1,333 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Exo+2:wght@300;400;600&display=swap');
+
+:root {
+    --bg-color: #040609;
+    --card-bg: rgba(10, 14, 20, 0.85);
+    --text-primary: #e6edf3;
+    --text-secondary: #8b949e;
+    --accent-color: #00aaff;
+    --accent-dark: #0055cc;
+    --danger-color: #da3633;
+    --border-color: rgba(0, 170, 255, 0.2);
+    --btn-hover: #0077cc;
+    --glow: 0 0 10px rgba(0, 170, 255, 0.3);
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+html {
+    background-color: var(--bg-color);
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+body {
+    background-color: transparent;
+    color: var(--text-primary);
+    font-family: 'Exo 2', 'Segoe UI', sans-serif;
+}
+
+/* ---- CONTENEDOR PRINCIPAL ---- */
+.container {
+    position: relative;
+    z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 30px 20px;
+}
+
+/* ---- HEADER ---- */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 20px;
+}
+
+h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.5rem;
+    color: var(--accent-color);
+    text-shadow: var(--glow);
+    margin: 0;
+}
+
+h2 {
+    color: var(--text-primary);
+    margin-top: 0;
+    font-family: 'Exo 2', sans-serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--accent-color);
+}
+
+/* ---- CARDS ---- */
+.card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), var(--glow);
+    backdrop-filter: blur(10px);
+    transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 4px 30px rgba(0, 170, 255, 0.2), 0 0 0 1px rgba(0, 170, 255, 0.3);
+}
+
+/* ---- TABLAS ---- */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+th {
+    text-align: left;
+    color: var(--accent-color);
+    border-bottom: 1px solid var(--border-color);
+    padding: 12px;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+}
+
+td {
+    padding: 14px 12px;
+    border-bottom: 1px solid rgba(0, 170, 255, 0.05);
+    color: var(--text-primary);
+}
+
+tr:hover td {
+    background-color: rgba(0, 170, 255, 0.05);
+}
+
+/* ---- ÁREA DE SUBIDA ---- */
+.upload-area {
+    border: 2px dashed var(--border-color);
+    border-radius: 8px;
+    padding: 40px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    background-color: rgba(0, 170, 255, 0.02);
+    color: var(--text-secondary);
+}
+
+.upload-area:hover, .upload-area.dragover {
+    border-color: var(--accent-color);
+    background-color: rgba(0, 170, 255, 0.07);
+    box-shadow: var(--glow);
+    color: var(--text-primary);
+}
+
+/* ---- BOTONES ---- */
+button {
+    cursor: pointer;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-weight: 600;
+    font-family: 'Exo 2', sans-serif;
+    transition: all 0.2s;
+    font-size: 0.85rem;
+}
+
+.btn-primary {
+    background-color: rgba(0, 170, 255, 0.15);
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color);
+}
+
+.btn-primary:hover {
+    background-color: var(--accent-color);
+    color: #000;
+    box-shadow: var(--glow);
+}
+
+.download-btn {
+    background-color: rgba(0, 85, 204, 0.2);
+    color: #4dd0e1;
+    border: 1px solid rgba(77, 208, 225, 0.4);
+}
+
+.download-btn:hover {
+    background-color: rgba(0, 85, 204, 0.5);
+    border-color: #4dd0e1;
+}
+
+.delete-btn {
+    background-color: transparent;
+    color: var(--danger-color);
+    border: 1px solid var(--danger-color);
+}
+
+.delete-btn:hover {
+    background-color: var(--danger-color);
+    color: white;
+}
+
+.logout-btn {
+    background-color: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+}
+
+.logout-btn:hover {
+    color: var(--text-primary);
+    border-color: var(--accent-color);
+}
+
+/* ---- BARRA DE CUOTA ---- */
+.quota-bar {
+    background: rgba(0, 170, 255, 0.1);
+    height: 8px;
+    border-radius: 5px;
+    margin-top: 10px;
+    border: 1px solid var(--border-color);
+}
+
+.quota-fill {
+    background: linear-gradient(90deg, var(--accent-dark), var(--accent-color));
+    height: 100%;
+    border-radius: 5px;
+    box-shadow: var(--glow);
+    transition: width 0.5s ease;
+}
+
+/* ---- MENSAJES ---- */
+#message {
+    display: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+}
+
+#message.success {
+    background: rgba(0, 170, 255, 0.1);
+    border: 1px solid var(--accent-color);
+    color: var(--accent-color);
+}
+
+#message.error {
+    background: rgba(218, 54, 51, 0.1);
+    border: 1px solid var(--danger-color);
+    color: var(--danger-color);
+}
+
+/* ---- USER INFO ---- */
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.user-info strong {
+    color: var(--accent-color);
+}
+
+.user-info a {
+    text-decoration: none;
+}
+
+/* ---- LOGIN ---- */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.login-card {
+    width: 100%;
+    max-width: 400px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 40px;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6), var(--glow);
+    backdrop-filter: blur(20px);
+}
+
+.login-card h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 1.6rem;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 15px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-primary);
+    font-family: 'Exo 2', sans-serif;
+    font-size: 0.95rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    outline: none;
+}
+
+.form-group input:focus {
+    border-color: var(--accent-color);
+    box-shadow: var(--glow);
+}
+
+.login-card .btn-primary {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-family: 'Orbitron', sans-serif;
+    margin-top: 10px;
+}
+
+.error-msg {
+    background: rgba(218, 54, 51, 0.1);
+    border: 1px solid var(--danger-color);
+    color: var(--danger-color);
+    padding: 10px 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+/* ---- ACCIONES EN TABLA ---- */
+td.actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
