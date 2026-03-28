@@ -8,10 +8,6 @@ venv/
 instance/
 .env
 config.py
-
-# Binarios de Halo/Wine
-*.exe
-*.sh (si tienen passwords)
-
+*.txt
 # Archivos de Sistema
 .DS_Store
