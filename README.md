@@ -92,4 +92,8 @@ El sistema utiliza servicios para asegurar que el NAS y Halo siempre estén acti
 
 ---
 
+file:///home/fabian/Im%C3%A1genes/Capturas%20de%20pantalla/Captura%20desde%202026-03-27%2016-51-41.png
+
+Ejemplo de server.
+
 ## Puedes descargar el HALOCE desde https://halocustomedition.github.io/Halo/
